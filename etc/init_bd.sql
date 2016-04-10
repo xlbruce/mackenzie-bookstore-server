@@ -1,17 +1,60 @@
-DROP TABLE IF NOT EXISTS user;
-CREATE TABLE user (
-	user_code VARCHAR(8),
-	email VARCHAR(40),
-	password VARCHAR(20),
-	is_admin BOOLEAN,
-	PRIMARY KEY (user_code)
+CREATE TABLE publisher (
+  id_publisher INTEGER UNSIGNED NOT NULL,
+  name VARCHAR(45) NOT NULL,
+  PRIMARY KEY(id_publisher)
 );
 
-DROP TABLE IF NOT EXISTS trade;
-CREATE TABLE trade (
-	buyer_code VARCHAR(8),
-	seller_code VARCHAR(8),
-	date DATETIME,
-	PRIMARY KEY (buyer_code, seller_code, date)
+CREATE TABLE author (
+  id_author INTEGER UNSIGNED NOT NULL,
+  name VARCHAR(45) NOT NULL,
+  PRIMARY KEY(id_author)
 );
---TODO
+
+CREATE TABLE user_type (
+  type_id INTEGER UNSIGNED NOT NULL,
+  type VARCHAR(45) NOT NULL,
+  PRIMARY KEY(type_id)
+);
+
+CREATE TABLE user (
+  code INTEGER UNSIGNED NOT NULL,
+  type_id INTEGER UNSIGNED NOT NULL,
+  username VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  password VARCHAR(45) NOT NULL,
+  PRIMARY KEY(code),
+  FOREIGN KEY(type_id)
+    REFERENCES user_type(type_id)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE book (
+  isbn INTEGER UNSIGNED NOT NULL,
+  id_author INTEGER UNSIGNED NOT NULL,
+  id_publisher INTEGER UNSIGNED NOT NULL,
+  name VARCHAR(45) NOT NULL,
+  description TEXT NULL,
+  PRIMARY KEY(isbn),
+  FOREIGN KEY(id_publisher)
+    REFERENCES publisher(id_publisher)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(id_author)
+    REFERENCES author(id_author)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE annouce (
+  code INTEGER UNSIGNED NOT NULL,
+  isbn INTEGER UNSIGNED NOT NULL,
+  sold BOOL NULL DEFAULT false,
+  description TEXT NULL,
+  PRIMARY KEY(code, isbn),
+  FOREIGN KEY(isbn)
+    REFERENCES book(isbn)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
