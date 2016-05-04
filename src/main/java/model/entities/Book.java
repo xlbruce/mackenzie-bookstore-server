@@ -24,59 +24,66 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Cascade;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author 31409695
  */
 @Entity
 @Table(name = "book")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
-    @NamedQuery(name = "Book.findByIsbn", query = "SELECT b FROM Book b WHERE b.isbn = :isbn"),
-    @NamedQuery(name = "Book.findByName", query = "SELECT b FROM Book b WHERE b.name = :name")})
 public class Book implements Serializable {
-    private static final long serialVersionUID = 1L;
+    
+	private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "isbn")
-    private Integer isbn;
+    private String isbn;
+    
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 200)
     @Column(name = "name")
     private String name;
+    
     @Lob
     @Size(max = 65535)
     @Column(name = "description")
     private String description;
+    
     @JoinColumn(name = "id_publisher", referencedColumnName = "id_publisher")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Publisher publisher;
+    
     @JoinColumn(name = "id_author", referencedColumnName = "id_author")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Author author;
+    
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
-    private List<Announce> annouceList;
+    private List<Announce> announceList;
 
     public Book() {
     }
 
-    public Book(Integer isbn) {
+    public Book(String isbn) {
         this.isbn = isbn;
     }
 
-    public Book(Integer isbn, String name) {
+    public Book(String isbn, String name) {
         this.isbn = isbn;
         this.name = name;
     }
 
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -112,13 +119,12 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    @XmlTransient
-    public List<Announce> getAnnouceList() {
-        return annouceList;
+    public List<Announce> getAnnounceList() {
+        return announceList;
     }
 
-    public void setAnnouceList(List<Announce> annouceList) {
-        this.annouceList = annouceList;
+    public void setAnnounceList(List<Announce> announceList) {
+        this.announceList = announceList;
     }
 
     @Override

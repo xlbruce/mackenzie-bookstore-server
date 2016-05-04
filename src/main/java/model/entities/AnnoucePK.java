@@ -24,12 +24,12 @@ public class AnnoucePK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "isbn")
-    private int isbn;
+    private String isbn;
 
     public AnnoucePK() {
     }
 
-    public AnnoucePK(int code, int isbn) {
+    public AnnoucePK(int code, String isbn) {
         this.code = code;
         this.isbn = isbn;
     }
@@ -42,11 +42,11 @@ public class AnnoucePK implements Serializable {
         this.code = code;
     }
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -54,7 +54,7 @@ public class AnnoucePK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) code;
-        hash += (int) isbn;
+        hash += (isbn != null ? isbn.hashCode() : 0);
         return hash;
     }
 

@@ -27,23 +27,21 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "user_type")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserType.findAll", query = "SELECT u FROM UserType u"),
-    @NamedQuery(name = "UserType.findByTypeId", query = "SELECT u FROM UserType u WHERE u.typeId = :typeId"),
-    @NamedQuery(name = "UserType.findByType", query = "SELECT u FROM UserType u WHERE u.type = :type")})
 public class UserType implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "type_id")
     private Integer typeId;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "type")
     private String type;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userType")
     private List<User> userList;
 

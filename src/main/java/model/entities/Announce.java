@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.entities;
 
 import java.io.Serializable;
@@ -24,22 +19,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "annouce")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Annouce.findAll", query = "SELECT a FROM Annouce a"),
-    @NamedQuery(name = "Annouce.findByCode", query = "SELECT a FROM Annouce a WHERE a.annoucePK.code = :code"),
-    @NamedQuery(name = "Annouce.findByIsbn", query = "SELECT a FROM Annouce a WHERE a.annoucePK.isbn = :isbn"),
-    @NamedQuery(name = "Annouce.findBySold", query = "SELECT a FROM Annouce a WHERE a.sold = :sold")})
 public class Announce implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected AnnoucePK annoucePK;
+    
     @Column(name = "sold")
     private Boolean sold;
+    
     @Lob
     @Size(max = 65535)
     @Column(name = "description")
     private String description;
+    
     @JoinColumn(name = "isbn", referencedColumnName = "isbn", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Book book;
@@ -51,7 +44,7 @@ public class Announce implements Serializable {
         this.annoucePK = annoucePK;
     }
 
-    public Announce(int code, int isbn) {
+    public Announce(int code, String isbn) {
         this.annoucePK = new AnnoucePK(code, isbn);
     }
 
