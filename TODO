@@ -1,0 +1,5 @@
+- Get Google Books API data asynchonously
+- Get data from database
+- Verify all books that is not in database and persist them:
+  - 1. For each persist, verify if have the respective Author and Publisher on database, if is, assign to this object
+  - 2. Persist them 
