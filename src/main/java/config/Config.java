@@ -9,8 +9,6 @@ import repository.BookRepository;
 import repository.PublisherRepository;
 import service.AuthorRepositoryService;
 import service.AuthorRepositoryServiceImpl;
-//import service.AuthorRepositoryService;
-//import service.AuthorRepositoryServiceImpl;
 import service.BookRepositoryService;
 import service.BookRepositoryServiceImpl;
 import service.PublisherRepositoryService;
@@ -24,24 +22,24 @@ import service.PublisherRepositoryServiceImpl;
 @EnableJpaRepositories(basePackages = "repository")
 @EntityScan(basePackages = "model.entities")
 public class Config {
-    /*
+    
     @Bean
     public AuthorRepositoryService authorRepositoryService(AuthorRepository authorRepository) {
         return new AuthorRepositoryServiceImpl(authorRepository);
-    }*/
+    }
 	
 	@Bean
 	public BookRepositoryService bookRepositoryService(BookRepository bookRepository) {
-		return new BookRepositoryServiceImpl();
+		return new BookRepositoryServiceImpl(bookRepository);
+	}
+
+	@Bean
+	public PublisherRepositoryService publisherRepositoryService(PublisherRepository publisherRepository) {
+		return new PublisherRepositoryServiceImpl(publisherRepository);
 	}
 	
 	/*
 	 * Maybe will not be used
-	@Bean
-	public PublisherRepositoryService publisherRepositoryService(PublisherRepository publisherRepository) {
-		return new PublisherRepositoryServiceImpl();
-	}
-	
 	@Bean
 	public AuthorRepositoryService authorRepositoryService(AuthorRepository authorRepository) {
 		return new AuthorRepositoryServiceImpl();

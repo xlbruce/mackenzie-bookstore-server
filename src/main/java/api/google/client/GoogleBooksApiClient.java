@@ -27,22 +27,8 @@ public class GoogleBooksApiClient {
 
 	private static final String BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=%s";
 
-	private String searchKey;
-
-	public GoogleBooksApiClient(String searchKey) {
-		this.setSearchKey(searchKey);
-	}
-
-	public String getSearchKey() {
-		return searchKey;
-	}
-
-	public void setSearchKey(String searchKey) {
-		this.searchKey = searchKey.replace(" ", "%20");
-	}
-
-	public List<Book> getBooks() throws ClientProtocolException, IOException {
-		HttpGet request = new HttpGet(String.format(BOOKS_API_URL, searchKey));
+	public List<Book> searchBooks(String searchKey) throws ClientProtocolException, IOException {
+		HttpGet request = new HttpGet(String.format(BOOKS_API_URL, searchKey.replaceAll(" ", "%20")));
 		HttpResponse response = client.execute(request);
 		ObjectMapper mapper = new ObjectMapper();
 		List<Book> books;
@@ -58,6 +44,7 @@ public class GoogleBooksApiClient {
 	private List<Book> parseAndFilterBook(GoogleBooksApiResponse bookResponse) {
 		List<Book> books = new ArrayList<>();
 
+		//TODO check this
 		Stream<Item> filter = bookResponse.getItems().stream()
 				.filter(t -> t.getVolumeInfo().getIndustryIdentifiers().get(0).getType().equals("ISBN_13"));
 
