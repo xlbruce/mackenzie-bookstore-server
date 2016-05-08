@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.entities;
 
 import java.io.Serializable;
@@ -16,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * @author 31409695
  */
 @Embeddable
-public class AnnoucePK implements Serializable {
+public class AnnouncePK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "code")
@@ -26,10 +21,10 @@ public class AnnoucePK implements Serializable {
     @Column(name = "isbn")
     private String isbn;
 
-    public AnnoucePK() {
+    public AnnouncePK() {
     }
 
-    public AnnoucePK(int code, String isbn) {
+    public AnnouncePK(int code, String isbn) {
         this.code = code;
         this.isbn = isbn;
     }
@@ -61,10 +56,10 @@ public class AnnoucePK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AnnoucePK)) {
+        if (!(object instanceof AnnouncePK)) {
             return false;
         }
-        AnnoucePK other = (AnnoucePK) object;
+        AnnouncePK other = (AnnouncePK) object;
         if (this.code != other.code) {
             return false;
         }

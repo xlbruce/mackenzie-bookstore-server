@@ -7,11 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,7 +20,7 @@ public class Announce implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected AnnoucePK annoucePK;
+    protected AnnouncePK annoucePK;
     
     @Column(name = "sold")
     private Boolean sold;
@@ -40,19 +37,19 @@ public class Announce implements Serializable {
     public Announce() {
     }
 
-    public Announce(AnnoucePK annoucePK) {
+    public Announce(AnnouncePK annoucePK) {
         this.annoucePK = annoucePK;
     }
 
     public Announce(int code, String isbn) {
-        this.annoucePK = new AnnoucePK(code, isbn);
+        this.annoucePK = new AnnouncePK(code, isbn);
     }
 
-    public AnnoucePK getAnnoucePK() {
+    public AnnouncePK getAnnoucePK() {
         return annoucePK;
     }
 
-    public void setAnnoucePK(AnnoucePK annoucePK) {
+    public void setAnnoucePK(AnnouncePK annoucePK) {
         this.annoucePK = annoucePK;
     }
 
