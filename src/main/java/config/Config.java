@@ -7,12 +7,16 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import repository.AuthorRepository;
 import repository.BookRepository;
 import repository.PublisherRepository;
+import repository.UserRepository;
+import repository.UserTypeRepository;
 import service.AuthorRepositoryService;
 import service.AuthorRepositoryServiceImpl;
 import service.BookRepositoryService;
 import service.BookRepositoryServiceImpl;
 import service.PublisherRepositoryService;
 import service.PublisherRepositoryServiceImpl;
+import service.UserRepositoryService;
+import service.UserRepositoryServiceImpl;
 
 /**
  *
@@ -38,12 +42,9 @@ public class Config {
 		return new PublisherRepositoryServiceImpl(publisherRepository);
 	}
 	
-	/*
-	 * Maybe will not be used
 	@Bean
-	public AuthorRepositoryService authorRepositoryService(AuthorRepository authorRepository) {
-		return new AuthorRepositoryServiceImpl();
+	public UserRepositoryService userRepositoryService(UserRepository userRepository, UserTypeRepository userTypeRepository) {
+		return new UserRepositoryServiceImpl(userRepository, userTypeRepository);
 	}
-	*/
     
 }
