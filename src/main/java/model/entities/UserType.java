@@ -12,13 +12,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -41,10 +38,7 @@ public class UserType implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "type")
     private String type;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userType")
-    private List<User> userList;
-
+   
     public UserType() {
     }
 
@@ -71,15 +65,6 @@ public class UserType implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    @XmlTransient
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
     }
 
     @Override

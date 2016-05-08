@@ -7,6 +7,7 @@ package model.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -44,6 +47,7 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
     
+    @JsonIgnore
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -51,7 +55,7 @@ public class User implements Serializable {
     private String password;
     
     @JoinColumn(name = "type_id", referencedColumnName = "type_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private UserType userType;
 
     public User() {
