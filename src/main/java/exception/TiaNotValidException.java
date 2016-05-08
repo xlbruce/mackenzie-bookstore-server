@@ -1,11 +1,8 @@
 package exception;
 
-public class TiaNotValidException extends Exception {
+public class TiaNotValidException extends UserException {
 
 	private static final long serialVersionUID = 1L;
-	
-	public TiaNotValidException() {
-	}
 	
 	public TiaNotValidException(String msg) {
 		super(msg);
