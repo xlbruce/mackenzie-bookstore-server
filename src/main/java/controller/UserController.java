@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import exception.InvalidPasswordException;
 import exception.UserException;
+import exception.UserNotFoundException;
 import model.entities.User;
 import model.entities.UserType;
 import service.UserRepositoryService;
@@ -24,14 +26,11 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public User registerNewUser(@RequestParam("userCode") Integer userCode, 
-								@RequestParam("username") String username,
-								@RequestParam("email") String email, 
-								@RequestParam("password") String password,
-								@RequestParam("typeId") Integer typeId)
-					throws UserException {
+	public User registerNewUser(@RequestParam("userCode") Integer userCode, @RequestParam("username") String username,
+			@RequestParam("email") String email, @RequestParam("password") String password,
+			@RequestParam("typeId") Integer typeId) throws UserException {
 		UserType userType = new UserType(typeId);
-		
+
 		User user = new User();
 		user.setCode(userCode);
 		user.setUsername(username);
@@ -41,12 +40,19 @@ public class UserController {
 
 		return userRepositoryService.register(user);
 	}
-	
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@ResponseStatus(code = HttpStatus.OK)
+	public User login(@RequestParam("code") Integer code,
+					  @RequestParam("password") String password)
+			throws UserNotFoundException, InvalidPasswordException {
+		return userRepositoryService.login(code, password);
+	}
+
 	@ExceptionHandler(UserException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public String processErrors(UserException ex) {
 		return ex.getMessage();
 	}
-
 }
