@@ -56,6 +56,16 @@ public class UserRepositoryServiceImpl implements UserRepositoryService {
 		
 		return user;
 	}
+	
+	@Override
+	public User findById(Integer code) throws UserNotFoundException {
+		User user = userRepository.findOne(code);
+		if (user == null) {
+			throw new UserNotFoundException("Usuário não encontrado");
+		}
+		
+		return user;
+	}
 
 	private User findByUsername(String username) {
 		return userRepository.findByUsername(username).stream().filter(u -> username.equals(u.getUsername()))
