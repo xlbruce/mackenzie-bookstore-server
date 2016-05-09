@@ -12,5 +12,7 @@ public interface UserRepositoryService {
 	User register(User user) throws TiaNotValidException, UserAlreadyRegisteredException, UsernameAlreadyTakenException;
 
 	User login(Integer code, String password) throws UserNotFoundException, InvalidPasswordException;
+	
+	User findById(Integer code) throws UserNotFoundException;
 
 }
