@@ -47,13 +47,15 @@ CREATE TABLE book (
 );
 
 CREATE TABLE announce (
-  code INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  code INTEGER UNSIGNED NOT NULL,
   isbn VARCHAR(13) NOT NULL,
   sold BOOL NULL DEFAULT false,
   description TEXT NULL,
   PRIMARY KEY(code, isbn),
   FOREIGN KEY(isbn)
-    REFERENCES book(isbn)
+    REFERENCES book(isbn),
+  FOREIGN KEY(code)
+    REFERENCES user(code),
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
