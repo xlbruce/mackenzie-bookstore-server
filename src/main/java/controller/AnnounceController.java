@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +25,13 @@ public class AnnounceController {
 			@RequestParam("description") String description) throws UserNotFoundException, BookNotFoundException {
 
 		return announceRpositoryService.registerAnnounce(code, isbn, description);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Announce> findAnnouncesByBookName(@RequestParam("book_name") String bookName) {
+		List<Announce> announces = announceRpositoryService.findAnnounceByBookName(bookName);
+		
+		return announces;
 	}
 
 }

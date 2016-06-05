@@ -1,5 +1,10 @@
 package service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import exception.BookNotFoundException;
@@ -43,5 +48,22 @@ public class AnnounceRepositoryServiceImpl implements AnnounceRepositoryService 
 		
 		announce = announceRepository.save(announce);
 		return announce;
+	}
+	
+	@Override
+	public List<Announce> findAnnounceByBookName(String bookName) {
+		List<Book> books = bookRepositoryService.findByName(bookName);
+		Set<String> isbns = extractIsbnsFromBooks(books);
+		List<Announce> announces = announceRepository.findByIsbns(isbns);
+		return announces;
+	}
+	
+	private static Set<String> extractIsbnsFromBooks(List<Book> books) {
+		Objects.requireNonNull(books);
+		Set<String> isbns = new HashSet<>();
+		
+		books.forEach(book -> isbns.add(book.getIsbn()));
+		
+		return isbns;
 	}
 }
