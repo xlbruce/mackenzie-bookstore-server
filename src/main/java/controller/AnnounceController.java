@@ -21,7 +21,7 @@ public class AnnounceController {
 	private AnnounceRepositoryService announceRpositoryService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Announce registerAnnounce(@RequestParam("userCode") Integer code, @RequestParam("isbn") String isbn,
+	public Announce registerAnnounce(@RequestParam("user_code") Integer code, @RequestParam("isbn") String isbn,
 			@RequestParam("description") String description) throws UserNotFoundException, BookNotFoundException {
 
 		return announceRpositoryService.registerAnnounce(code, isbn, description);
