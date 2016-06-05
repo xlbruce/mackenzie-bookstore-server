@@ -1,10 +1,7 @@
 package service;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,16 +10,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.scheduling.annotation.Async;
 
 import api.google.client.GoogleBooksApiClient;
+import exception.BookNotFoundException;
 import model.entities.Author;
 import model.entities.Book;
 import model.entities.Publisher;
-import repository.AuthorRepository;
 import repository.BookRepository;
-import repository.PublisherRepository;
 
 public class BookRepositoryServiceImpl implements BookRepositoryService {
 
@@ -58,7 +52,7 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
 		List<Book> newBooks = new ArrayList<>();
 		// TODO update "books" references
 		try {
-			newBooks = new ArrayList<>(futureBooks.get(1, TimeUnit.HOURS));
+			newBooks = new ArrayList<>(futureBooks.get(1, TimeUnit.MINUTES));
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		} catch (TimeoutException e) {
@@ -95,8 +89,13 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
 	}
 
 	@Override
-	public Book findById(String isbn) {
-		return bookRepository.findOne(isbn);
+	public Book findById(String isbn) throws BookNotFoundException {
+		Book book = bookRepository.findOne(isbn);
+		if (book == null) {
+			throw new BookNotFoundException("Livro não encontrado");
+		}
+		
+		return book;
 	}
 
 	@Override

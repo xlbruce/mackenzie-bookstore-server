@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import exception.BookNotFoundException;
 import model.entities.Book;
 
-import repository.BookRepository;
 import service.BookRepositoryService;
 
 @RestController
@@ -26,7 +26,7 @@ public class BookController {
 	}
 	
 	@RequestMapping("/{isbn}")
-	public Book findByIsbn(@PathVariable("isbn") String isbn) {
+	public Book findByIsbn(@PathVariable("isbn") String isbn) throws BookNotFoundException {
 		return bookRepositoryService.findById(isbn);
 	}
 	
