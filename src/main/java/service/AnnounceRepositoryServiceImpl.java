@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import exception.AnnounceNotFoundException;
 import exception.BookNotFoundException;
 import exception.UserNotFoundException;
 import model.entities.Announce;
@@ -56,6 +57,15 @@ public class AnnounceRepositoryServiceImpl implements AnnounceRepositoryService 
 		Set<String> isbns = extractIsbnsFromBooks(books);
 		List<Announce> announces = announceRepository.findByIsbns(isbns);
 		return announces;
+	}
+	
+	public Announce findById(AnnouncePK id) throws AnnounceNotFoundException {
+		Announce announce = announceRepository.findOne(id);
+		if (announce == null) {
+			throw new AnnounceNotFoundException("Anuncio não encontrado");
+		}
+		
+		return announce;
 	}
 	
 	private static Set<String> extractIsbnsFromBooks(List<Book> books) {

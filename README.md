@@ -69,3 +69,30 @@
   }
 ]
 ```
+#### Find announces by primary key
+
+###### Request: ``` GET /announce/{userCode}/{isbn}```
+###### Response example:
+```json
+{
+  "annoucePK": {
+    "code": 31409695,
+    "isbn": "9788578932466"
+  },
+  "sold": false,
+  "description": "Livro em bom estado",
+  "book": {
+    "isbn": "9788578932466",
+    "name": "MEMORIAS REVELADAS - CENTRO DE INVESTIGACAO DA",
+    "description": "Descobrir a Memória é também descobrir a Identidade. Refletir sobre a identificaçãoda memória através da Filosofia, Moral,Ética e Educação, assim como dosrelacionamentos, comportamentos e conflitos do cotidiano, no tocante aos víciose virtudes que cerceiam o homem inserido na sociedade, caracteriza esta obra.Aventuras e desventuras do ser humano estão contidas em sermões e ensaios não moralistas, mas coerentes com a artede apreender o imaginário coletivo e representar com sensibilidade a Identidade do homem moderno.Conceitos como conflito, consciência, bem, mal, maternidade, paternidade, razão, moral, ética, motivação,autoestima, humildade e silêncio indagam como a Memória pode construir o intelecto e a moral através da racionalidade",
+    "publisher": {
+      "idPublisher": 2,
+      "name": "biblioteca24horas"
+    },
+    "author": {
+      "idAuthor": 2,
+      "name": "RENATA CARLA DINIZ"
+    }
+  }
+}
+```
