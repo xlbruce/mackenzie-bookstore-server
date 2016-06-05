@@ -32,13 +32,13 @@ public class UserRepositoryServiceImpl implements UserRepositoryService {
 			throw new TiaNotValidException("Tia inválido");
 		}
 
-		if (userRepository.exists(user.getCode())) {
-			throw new UserAlreadyRegisteredException("Usuário já cadastrado");
-		}
+//		if (userRepository.exists(user.getCode())) {
+//			throw new UserAlreadyRegisteredException("Usuário já cadastrado");
+//		}
 
-		if (findByUsername(user.getUsername()) != null) {
-			throw new UsernameAlreadyTakenException("Nome de usuário já está em uso");
-		}
+//		if (findByUsername(user.getUsername()) != null) {
+//			throw new UsernameAlreadyTakenException("Nome de usuário já está em uso");
+//		}
 
 		User registeredUser = save(user);
 		return registeredUser;
