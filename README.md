@@ -96,3 +96,22 @@
   }
 }
 ```
+
+### User
+
+#### Find user by id (user code)
+
+###### Request: ``` GET /user/{userCode}```
+
+###### Response example: 
+```json
+{
+  "code": 31409695,
+  "username": "gilson",
+  "email": "gilson@email.com",
+  "userType": {
+    "typeId": 1,
+    "type": "Regular user"
+  }
+}
+```

@@ -3,6 +3,7 @@ package controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +19,12 @@ import model.entities.UserType;
 import service.UserRepositoryService;
 
 @RestController
-@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	private UserRepositoryService userRepositoryService;
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public User registerNewUser(@RequestParam("userCode") Integer userCode, @RequestParam("username") String username,
 			@RequestParam("email") String email, @RequestParam("password") String password,
@@ -47,6 +47,11 @@ public class UserController {
 					  @RequestParam("password") String password)
 			throws UserNotFoundException, InvalidPasswordException {
 		return userRepositoryService.login(code, password);
+	}
+	
+	@RequestMapping(path = "/user/{userCode}", method = RequestMethod.GET)
+	public User findByid(@PathVariable("userCode") Integer userCode) throws UserNotFoundException {
+		return userRepositoryService.findById(userCode);
 	}
 
 	@ExceptionHandler(UserException.class)
