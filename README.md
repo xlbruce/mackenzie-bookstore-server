@@ -1,5 +1,13 @@
 # Mackenzie Bookstore Server
 
+## Dependencies
+- jdk 1.8 (or higher)
+- maven 3.3.9 (or higher)
+## How to build and run
+Go to project root folder and run `mvn clean install`.
+An `.jar` file will be created at `target/` folder.
+To run the server, execute the following `java -jar target/mackenzie-bookstore-server-0.0.1-SNAPSHOT.jar`
+(make sure java installation is set in your `$PATH` or `%PATH%` (for Unix-like and Windows systems respectively)
 ## Important notes
 
 - Values between [] are optional
@@ -96,9 +104,39 @@
   }
 }
 ```
+### Book
+#### Get all books in database
+###### Request: ```GET /books```
+###### Response example:
+```json
+[
+{
+    "isbn":"9781429978217",
+    "name":"Harry Potter, You're the Best!",
+    "description":"After St. Martin's published We Love Harry Potter! We'll tell you why we got hundreds of letters from fans around the world who wanted to offer their thoughts about the books they love. Their fertile imaginations have led them to share their creative takes on Harry: their opinions about the plots and characters, their wishes for the next book and the upcoming, highly ancipated movie version, their ideas for playing Harry, Ron, Hermione, and all their other favorite characters, and much more! The collected letters are a delightful testament to how widespread and beloved the Harry Potter phenomenon has become.",
+    "publisher":{
+        "idPublisher":1,
+        "name":"Macmillan"
+    },
+    "author":{
+        "idAuthor":1,"name":"Sharon Moore"
+    }
+}
+]
+```
+
+#### Find books by name
+###### Request: ```GET /books/name/{bookName}```
+###### Request example is same as above
+
+#### Find a book by ISBN
+###### Request: ```GET /books/{isbn}```
+###### Response: it will be only one book returned
 
 ### User
-
+#### Register or update a user
+###### Request: ```POST /users?userCode=<usercode>&username=<username>&email=<email>&password=<password>&typeId=<typeId>```
+###### Response example: 
 #### Find user by id (user code)
 
 ###### Request: ``` GET /user/{userCode}```
